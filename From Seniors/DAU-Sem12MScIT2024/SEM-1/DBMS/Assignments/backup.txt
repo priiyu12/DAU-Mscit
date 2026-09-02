@@ -1,0 +1,28 @@
+-- CREATE TABLE "EC_DB" .users(
+-- 	user_id SERIAL PRIMARY KEY,
+-- 	username VARCHAR(50) NOT NULL UNIQUE,
+-- 	email VARCHAR(100) NOT NULL UNIQUE,
+-- 	password VARCHAR(255) NOT NULL,
+-- 	first_name VARCHAR(50),
+-- 	last_name VARCHAR(50),
+-- 	address TEXT,
+-- 	phone_number VARCHAR(20)
+	
+-- );
+
+-- COPY "EC_DB" .users FROM 'C:\PostgreSQL\users.csv' DELIMITER ',' CSV HEADER;
+-- select * from "EC_DB".users;
+
+-- select * from "EC_DB".users where first_name like 'Raghav';
+
+-- CREATE TABLE  "EC_DB" .products (product_id INT PRIMARY KEY , name VARCHAR(100) NOT NULL, description TEXT, price DECIMAL(10, 2) NOT NULL, stock_quantity INT NOT NULL, category_id INT, FOREIGN KEY (category_id) REFERENCES "EC_DB".categories(category_id) ); 
+-- CREATE TABLE "EC_DB".orders (order_id INT PRIMARY KEY , user_id INT, order_date DATE NOT NULL, shipping_address TEXT, total_amount DECIMAL(10, 2) NOT NULL, status VARCHAR(50), FOREIGN KEY (user_id) REFERENCES "EC_DB".Users(user_id) ); 
+-- CREATE TABLE "EC_DB".order_details ( order_detail_id INT PRIMARY KEY , order_id INT, product_id INT, quantity INT NOT NULL, price DECIMAL(10, 2) NOT NULL, FOREIGN KEY (order_id) REFERENCES "EC_DB".Orders(order_id), FOREIGN KEY (product_id) REFERENCES "EC_DB".Products(product_id) ); 
+-- CREATE TABLE "EC_DB".reviews (review_id INT PRIMARY KEY, user_id INT, product_id INT, rating INT CHECK (rating >= 1 AND rating <= 5), comment TEXT, review_date DATE NOT NULL, FOREIGN KEY (user_id) REFERENCES "EC_DB".Users(user_id), FOREIGN KEY (product_id) REFERENCES "EC_DB".Products(product_id) ); 
+
+-- COPY "EC_DB" .categories FROM 'C:\Users\student\Desktop\202412048\EC_DB\categories.csv' DELIMITER ',' CSV HEADER;
+-- COPY "EC_DB" .order_details FROM 'C:\Users\student\Desktop\202412048\EC_DB\order_details.csv' DELIMITER ',' CSV HEADER;
+-- COPY "EC_DB" .orders FROM 'C:\Users\student\Desktop\202412048\EC_DB\orders.csv' DELIMITER ',' CSV HEADER;
+-- COPY "EC_DB" .products FROM 'C:\Users\student\Desktop\202412048\EC_DB\products.csv' DELIMITER ',' CSV HEADER;
+-- COPY "EC_DB" .reviews FROM 'C:\Users\student\Desktop\202412048\EC_DB\reviews.csv' DELIMITER ',' CSV HEADER;
+-- select * from "EC_DB" .products where price>5000 ; --2

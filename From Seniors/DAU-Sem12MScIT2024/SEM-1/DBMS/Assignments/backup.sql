@@ -1,0 +1,50 @@
+-- select * from "EC_DB".users where user_id NOT IN (select user_id from "EC_DB".orders );
+-- SELECT 
+--     p.product_id,
+--     p.name,
+--     r.review_id,
+--     r.review_date,
+--     r.comment,
+--     r.rating
+-- FROM 
+--     "EC_DB".products p 
+-- JOIN 
+--     "EC_DB".reviews r ON p.product_id = r.product_id 
+-- WHERE 
+--     r.review_date = (
+--         SELECT MAX(r2.review_date)
+--         FROM "EC_DB".reviews r2
+--         WHERE r2.product_id = p.product_id
+--     )order by 1;
+-- select * from "EC_DB".reviews
+-- select u.user_id,u.username,u.email,u.first_name,o.order_id from "EC_DB".users u join "EC_DB".orders o ON u.user_id = o.order_id
+-- WHERE o.status = 'Delivered'
+-- CREATE OR REPLACE VIEW "EC_DB".userSpent AS select u.user_id,u.username,u.email,u.first_name,sum(o.total_amount) from "EC_DB".users u join "EC_DB".orders o on u.user_id = o.user_id group by u.user_id,u.username;
+-- select * from "EC_DB".userSpent view;
+
+-- SELECT 
+--     c.category_id,
+--     c.category_name,
+--     AVG(p.price) AS average_price
+-- FROM 
+--     "EC_DB".products p
+-- JOIN 
+--     "EC_DB".categories c ON p.category_id = c.category_id
+-- JOIN 
+--     "EC_DB".reviews r ON p.product_id = r.product_id
+-- GROUP BY 
+--     c.category_id, 
+--     c.category_name;
+-- SELECT 
+--     u.user_id,
+--     u.username,
+--     COUNT(o.order_id) AS order_count
+-- FROM 
+--     "EC_DB".users u
+-- JOIN 
+--     "EC_DB".orders o ON u.user_id = o.user_id
+-- GROUP BY 
+--     u.user_id, 
+--     u.username
+-- HAVING 
+--     COUNT(o.order_id) > 2;

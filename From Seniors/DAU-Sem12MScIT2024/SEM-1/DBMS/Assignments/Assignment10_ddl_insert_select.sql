@@ -1,0 +1,736 @@
+-- -- Table: oil_well
+-- CREATE TABLE oil_well (
+--     well_id SERIAL PRIMARY KEY,
+--     location VARCHAR(100) NOT NULL,
+--     depth NUMERIC(10, 2) CHECK (depth > 0),
+--     capacity NUMERIC(10, 2) CHECK (capacity >= 0),
+--     date_drilled DATE,
+--     status VARCHAR(50),
+--     operator_id INT
+-- );
+
+-- -- Table: equipment_details
+-- CREATE TABLE equipment_details (
+--     equipment_id SERIAL PRIMARY KEY,
+--     name VARCHAR(100) NOT NULL,
+--     manufacturer_id INT NOT NULL,
+--     purchase_date DATE,
+--     warranty_status BOOLEAN,
+--     maintenance_schedule VARCHAR(50)
+-- );
+
+-- -- Table: safety_compliance
+-- CREATE TABLE safety_compliance (
+--     s_compliance_id SERIAL PRIMARY KEY,
+--     well_id INT NOT NULL,
+--     date_of_inspection DATE NOT NULL,
+--     inspector_name VARCHAR(100) NOT NULL,
+--     compliance_status VARCHAR(50) CHECK (compliance_status IN ('Compliant', 'Non-compliant')),
+--     issue_reported TEXT,
+--     corrective_actions_taken TEXT,
+--     next_inspection_date DATE,
+--     FOREIGN KEY (well_id) REFERENCES oil_well(well_id) ON DELETE CASCADE
+-- );
+
+-- -- Table: equipment_usage
+-- CREATE TABLE equipment_usage (
+--     usage_id SERIAL PRIMARY KEY,
+--     equipment_id INT NOT NULL,
+--     well_id INT NOT NULL,
+--     start_date DATE NOT NULL,
+--     end_date DATE,
+--     hours_used NUMERIC(6, 2) CHECK (hours_used >= 0),
+--     FOREIGN KEY (equipment_id) REFERENCES equipment_details(equipment_id) ON DELETE CASCADE,
+--     FOREIGN KEY (well_id) REFERENCES oil_well(well_id) ON DELETE CASCADE
+-- );
+
+-- -- Table: equipment_operator
+-- CREATE TABLE equipment_operator (
+--     equipment_id INT PRIMARY KEY,
+--     operator_name VARCHAR(100) NOT NULL,
+--     FOREIGN KEY (equipment_id) REFERENCES equipment_details(equipment_id) ON DELETE CASCADE
+-- );
+
+-- -- Table: operator_status
+-- CREATE TABLE operator_status (
+--     operator_name VARCHAR(100) PRIMARY KEY,
+--     operational_status VARCHAR(50) CHECK (operational_status IN ('Active', 'Inactive'))
+-- );
+
+
+
+-- -- Table: equipment_maintenance
+-- CREATE TABLE equipment_maintenance (
+--     maintenance_id SERIAL PRIMARY KEY,
+--     equipment_id INT NOT NULL,
+--     well_id INT,
+--     maintenance_date DATE NOT NULL,
+--     issue_reported TEXT,
+--     repair_description TEXT,
+--     maintenance_cost NUMERIC(10, 2) CHECK (maintenance_cost >= 0),
+--     FOREIGN KEY (equipment_id) REFERENCES equipment_details(equipment_id) ON DELETE CASCADE,
+--     FOREIGN KEY (well_id) REFERENCES oil_well(well_id) ON DELETE CASCADE
+-- );
+
+-- -- Table: maintenance_technician
+-- CREATE TABLE maintenance_technician (
+--     maintenance_id INT PRIMARY KEY,
+--     technician_name VARCHAR(100) NOT NULL,
+--     FOREIGN KEY (maintenance_id) REFERENCES equipment_maintenance(maintenance_id) ON DELETE CASCADE
+-- );
+
+
+-- -- Table: equipment_location
+-- CREATE TABLE equipment_location (
+--     equipment_id INT PRIMARY KEY,
+--     well_id INT NOT NULL,
+--     current_location VARCHAR(100) NOT NULL,
+--     FOREIGN KEY (equipment_id) REFERENCES equipment_details(equipment_id) ON DELETE CASCADE,
+--     FOREIGN KEY (well_id) REFERENCES oil_well(well_id) ON DELETE CASCADE
+-- );
+
+-- -- Table: transaction
+-- CREATE TABLE transaction (
+--     transaction_id SERIAL PRIMARY KEY,
+--     well_id INT NOT NULL,
+--     buyer_id INT NOT NULL,
+--     seller_id INT NOT NULL,
+--     transaction_date DATE NOT NULL,
+--     oil_quantity NUMERIC(10, 2) CHECK (oil_quantity > 0),
+--     price_per_unit NUMERIC(10, 2) CHECK (price_per_unit > 0),
+--     transaction_type VARCHAR(50) CHECK (transaction_type IN ('Purchase', 'Sale')),
+--     payment_method VARCHAR(50),
+--     delivery_date DATE,
+--     FOREIGN KEY (well_id) REFERENCES oil_well(well_id) ON DELETE CASCADE
+-- );
+
+-- -- Table: transaction_amount
+-- CREATE TABLE transaction_amount (
+--     transaction_id INT PRIMARY KEY,
+--     total_amount NUMERIC(12, 2) CHECK (total_amount >= 0),
+--     FOREIGN KEY (transaction_id) REFERENCES transaction(transaction_id) ON DELETE CASCADE
+-- );
+
+-- -- Table: environmental_monitoring
+-- CREATE TABLE environmental_monitoring (
+--     monitoring_id SERIAL PRIMARY KEY,
+--     well_id INT NOT NULL,
+--     air_quality VARCHAR(50),
+--     water_pollution_level VARCHAR(50),
+--     waste_disposal_method VARCHAR(100),
+--     emission_level VARCHAR(50),
+--     monitoring_date DATE NOT NULL,
+--     compliance_status VARCHAR(50) CHECK (compliance_status IN ('Compliant', 'Non-compliant')),
+--     FOREIGN KEY (well_id) REFERENCES oil_well(well_id) ON DELETE CASCADE
+-- );
+
+-- -- Table: maintenance_history
+-- CREATE TABLE maintenance_history (
+--     history_id SERIAL PRIMARY KEY,
+--     equipment_id INT NOT NULL,
+--     well_id INT NOT NULL,
+--     maintenance_type VARCHAR(100),
+--     issue_detected TEXT,
+--     repair_status VARCHAR(50) CHECK (repair_status IN ('Repaired', 'Unrepairable', 'In Progress')),
+--     repair_cost NUMERIC(10, 2) CHECK (repair_cost >= 0),
+--     maintenance_date DATE NOT NULL,
+--     FOREIGN KEY (equipment_id) REFERENCES equipment_details(equipment_id) ON DELETE CASCADE,
+--     FOREIGN KEY (well_id) REFERENCES oil_well(well_id) ON DELETE CASCADE
+-- );
+
+-- -- Table: maintenance_technician_history
+-- CREATE TABLE maintenance_technician_history (
+--     history_id INT PRIMARY KEY,
+--     technician_name VARCHAR(100) NOT NULL,
+--     FOREIGN KEY (history_id) REFERENCES maintenance_history(history_id) ON DELETE CASCADE
+-- );
+
+-- -- Table: stakeholder
+-- CREATE TABLE stakeholder (
+--     stakeholder_id SERIAL PRIMARY KEY,
+--     name VARCHAR(100) NOT NULL,
+--     stakeholder_type VARCHAR(50),
+--     preferred_payment_method VARCHAR(50),
+--     contact_details VARCHAR(255),
+--     location VARCHAR(100),
+--     registration_number VARCHAR(50),
+--     industry VARCHAR(50),
+--     date_of_entry DATE NOT NULL
+-- );
+
+-- -- Table: contract
+-- CREATE TABLE contract (
+--     contract_id SERIAL PRIMARY KEY,
+--     contract_details TEXT,
+--     start_date DATE NOT NULL,
+--     end_date DATE NOT NULL
+-- );
+
+-- -- Table: stakeholder_contract
+-- CREATE TABLE stakeholder_contract (
+--     stakeholder_id INT NOT NULL,
+--     contract_id INT NOT NULL,
+--     PRIMARY KEY (stakeholder_id, contract_id),
+--     FOREIGN KEY (stakeholder_id) REFERENCES stakeholder(stakeholder_id) ON DELETE CASCADE,
+--     FOREIGN KEY (contract_id) REFERENCES contract(contract_id) ON DELETE CASCADE
+-- );
+--------------------------------------------------------------------------------------------
+
+-- Table: oil_well
+-- INSERT INTO oil_well (location, depth, capacity, date_drilled, status, operator_id)
+-- VALUES 
+--     ('Ahmedabad Field', 1500.50, 100.25, '2022-01-15', 'Active', 1),
+--     ('Barmer Basin', 2300.75, 200.00, '2021-08-20', 'Inactive', 2),
+--     ('Krishna-Godavari Basin', 1800.30, 300.50, '2020-05-25', 'Active', 3),
+--     ('Cauvery Basin', 2100.40, 150.00, '2019-11-14', 'Active', 4),
+--     ('Assam-Arakan Basin', 2500.90, 120.75, '2020-06-20', 'Inactive', 5),
+--     ('Mumbai Offshore', 1750.60, 320.80, '2021-09-10', 'Active', 6),
+--     ('Rajasthan Field', 1600.45, 110.30, '2023-03-14', 'Inactive', 7),
+--     ('Cambay Basin', 2200.70, 210.00, '2018-12-01', 'Active', 8),
+--     ('Mehsana Field', 2400.95, 290.90, '2021-07-11', 'Active', 9),
+--     ('Nagaland Field', 1900.80, 135.65, '2019-04-22', 'Inactive', 10);
+
+-- -- Table: equipment_details
+-- INSERT INTO equipment_details (name, manufacturer_id, purchase_date, warranty_status, maintenance_schedule)
+-- VALUES 
+--     ('Drill Rig Model A', 1, '2022-01-10', TRUE, 'Monthly'),
+--     ('Hydraulic Pump B200', 2, '2021-07-15', FALSE, 'Quarterly'),
+--     ('Well Logging Tool X', 3, '2020-03-05', TRUE, 'Biannual'),
+--     ('Drill Rig Model C', 4, '2019-05-21', TRUE, 'Monthly'),
+--     ('Compressor D450', 5, '2018-06-10', FALSE, 'Annual'),
+--     ('Hydraulic Pump G300', 6, '2021-10-01', TRUE, 'Quarterly'),
+--     ('Mud Motor Z10', 7, '2019-09-15', TRUE, 'Monthly'),
+--     ('Rotary Table H300', 8, '2020-12-10', FALSE, 'Biannual'),
+--     ('Well Logging Tool Y', 9, '2022-02-12', TRUE, 'Annual'),
+--     ('Directional Drill F200', 10, '2019-08-25', FALSE, 'Monthly');
+
+-- -- Table: safety_compliance
+-- INSERT INTO safety_compliance (well_id, date_of_inspection, inspector_name, compliance_status, issue_reported, corrective_actions_taken, next_inspection_date)
+-- VALUES 
+--     (1, '2023-02-10', 'Rahul Sharma', 'Compliant', NULL, NULL, '2024-02-10'),
+--     (2, '2023-05-22', 'Suman Reddy', 'Non-compliant', 'Leakage in the pump', 'Replaced faulty valves', '2023-06-22'),
+--     (3, '2023-08-15', 'Priya Mehta', 'Compliant', NULL, NULL, '2024-08-15'),
+--     (4, '2023-01-18', 'Kiran Desai', 'Compliant', NULL, NULL, '2024-01-18'),
+--     (5, '2022-12-10', 'Amit Kumar', 'Non-compliant', 'Fire hazard near pump', 'Relocated pump', '2023-01-10'),
+--     (6, '2023-04-14', 'Ritika Singh', 'Compliant', NULL, NULL, '2024-04-14'),
+--     (7, '2023-09-11', 'Manish Patel', 'Non-compliant', 'Oil leak', 'Repaired pipeline', '2023-10-11'),
+--     (8, '2022-11-17', 'Neha Gupta', 'Compliant', NULL, NULL, '2023-11-17'),
+--     (9, '2023-03-21', 'Rajesh Kumar', 'Non-compliant', 'Electrical malfunction', 'Fixed wiring', '2023-04-21'),
+--     (10, '2023-06-25', 'Anjali Nair', 'Compliant', NULL, NULL, '2024-06-25');
+
+
+-- -- Table: equipment_usage
+-- INSERT INTO equipment_usage (equipment_id, well_id, start_date, end_date, hours_used)
+-- VALUES 
+--     (1, 1, '2023-01-01', '2023-01-10', 50.5),
+--     (2, 2, '2023-02-15', '2023-02-20', 35.0),
+--     (3, 3, '2023-03-05', '2023-03-15', 80.75),
+--     (4, 4, '2023-01-20', '2023-01-30', 65.0),
+--     (5, 5, '2023-02-01', '2023-02-10', 72.0),
+--     (6, 6, '2023-03-12', '2023-03-20', 55.5),
+--     (7, 7, '2023-04-05', '2023-04-15', 90.0),
+--     (8, 8, '2023-05-10', '2023-05-20', 62.5),
+--     (9, 9, '2023-06-01', '2023-06-10', 79.0),
+--     (10, 10, '2023-07-05', '2023-07-15', 85.0);
+
+-- -- Table: equipment_operator
+-- INSERT INTO equipment_operator (equipment_id, operator_name)
+-- VALUES 
+--     (1, 'Arjun Khanna'),
+--     (2, 'Vishal Kapoor'),
+--     (3, 'Sanjay Nair'),
+--     (4, 'Kavita Joshi'),
+--     (5, 'Rohit Verma'),
+--     (6, 'Meera Shah'),
+--     (7, 'Rekha Soni'),
+--     (8, 'Akash Singh'),
+--     (9, 'Neeraj Chopra'),
+--     (10, 'Pooja Shetty');
+
+-- -- Table: operator_status
+-- INSERT INTO operator_status (operator_name, operational_status)
+-- VALUES 
+--     ('Arjun Khanna', 'Active'),
+--     ('Vishal Kapoor', 'Inactive'),
+--     ('Sanjay Nair', 'Active'),
+--     ('Kavita Joshi', 'Active'),
+--     ('Rohit Verma', 'Inactive'),
+--     ('Meera Shah', 'Active'),
+--     ('Rekha Soni', 'Inactive'),
+--     ('Akash Singh', 'Active'),
+--     ('Neeraj Chopra', 'Active'),
+--     ('Pooja Shetty', 'Inactive');
+
+-- -- Table: equipment_maintenance
+-- INSERT INTO equipment_maintenance (equipment_id, well_id, maintenance_date, issue_reported, repair_description, maintenance_cost)
+-- VALUES 
+--     (1, 1, '2023-04-10', 'Routine check', 'No issues', 200.00),
+--     (2, 2, '2023-06-12', 'Hydraulic leak', 'Replaced seals', 450.75),
+--     (3, 3, '2023-07-30', 'Calibration needed', 'Calibrated logging tool', 300.50),
+--     (4, 4, '2023-02-20', 'Overheating', 'Replaced cooling system', 650.00),
+--     (5, 5, '2023-03-25', 'Broken valve', 'Replaced valve', 120.25),
+--     (6, 6, '2023-05-15', 'Electrical issue', 'Repaired circuit', 275.00),
+--     (7, 7, '2023-06-18', 'Routine check', 'No issues', 180.00),
+--     (8, 8, '2023-08-10', 'Hydraulic failure', 'Replaced hydraulic lines', 590.00),
+--     (9, 9, '2023-09-22', 'Leaking gasket', 'Replaced gasket', 115.50),
+--     (10, 10, '2023-10-05', 'Faulty wiring', 'Replaced wiring', 400.00);
+
+-- -- Table: maintenance_technician
+-- INSERT INTO maintenance_technician (maintenance_id, technician_name)
+-- VALUES 
+--     (1, 'Deepak Malhotra'),
+--     (2, 'Sunil Sharma'),
+--     (3, 'Anjali Kapoor'),
+--     (4, 'Rajeev Singh'),
+--     (5, 'Geeta Sharma'),
+--     (6, 'Ravi Patel'),
+--     (7, 'Swati Desai'),
+--     (8, 'Arun Kumar'),
+--     (9, 'Shalini Gupta'),
+--     (10, 'Vinod Mehta');
+
+-- -----
+-- -- Table: equipment_location
+-- INSERT INTO equipment_location (equipment_id, well_id, current_location)
+-- VALUES 
+--     (1, 1, 'Storage - Site A'),
+--     (2, 2, 'Active Well - Ahmedabad Field'),
+--     (3, 3, 'Storage - Central Depot'),
+--     (4, 4, 'Active Well - Barmer Basin'),
+--     (5, 5, 'Maintenance Facility'),
+--     (6, 6, 'Active Well - Mumbai Offshore'),
+--     (7, 7, 'Storage - East Wing'),
+--     (8, 8, 'Active Well - Cambay Basin'),
+--     (9, 9, 'Storage - North Depot'),
+--     (10, 10, 'Active Well - Cauvery Basin');
+
+-- -- Table: transaction
+-- INSERT INTO transaction (well_id, buyer_id, seller_id, transaction_date, oil_quantity, price_per_unit, transaction_type, payment_method, delivery_date)
+-- VALUES 
+--     (1, 101, 201, '2023-01-15', 500.75, 50.25, 'Sale', 'Wire Transfer', '2023-01-20'),
+--     (2, 102, 202, '2023-02-20', 300.00, 52.00, 'Purchase', 'Credit', '2023-02-25'),
+--     (3, 103, 203, '2023-03-15', 450.50, 49.50, 'Sale', 'Cash', '2023-03-18'),
+--     (4, 104, 204, '2023-04-25', 600.25, 48.75, 'Purchase', 'Wire Transfer', '2023-04-30'),
+--     (5, 105, 205, '2023-05-10', 250.00, 51.00, 'Sale', 'Credit', '2023-05-15'),
+--     (6, 106, 206, '2023-06-18', 320.30, 50.00, 'Purchase', 'Cash', '2023-06-22'),
+--     (7, 107, 207, '2023-07-20', 400.60, 47.50, 'Sale', 'Wire Transfer', '2023-07-25'),
+--     (8, 108, 208, '2023-08-15', 520.00, 49.00, 'Purchase', 'Credit', '2023-08-20'),
+--     (9, 109, 209, '2023-09-05', 350.75, 48.00, 'Sale', 'Cash', '2023-09-10'),
+--     (10, 110, 210, '2023-10-01', 450.50, 51.50, 'Purchase', 'Wire Transfer', '2023-10-05');
+
+-- -- Table: transaction_amount
+-- INSERT INTO transaction_amount (transaction_id, total_amount)
+-- VALUES 
+--     (1, 25137.19),
+--     (2, 15600.00),
+--     (3, 22372.25),
+--     (4, 29293.44),
+--     (5, 12750.00),
+--     (6, 16015.00),
+--     (7, 19028.50),
+--     (8, 25480.00),
+--     (9, 16836.00),
+--     (10, 23272.75);
+
+-- -- Table: environmental_monitoring
+-- INSERT INTO environmental_monitoring (well_id, air_quality, water_pollution_level, waste_disposal_method, emission_level, monitoring_date, compliance_status)
+-- VALUES 
+--     (1, 'Good', 'Moderate', 'Incineration', 'Low', '2023-01-10', 'Compliant'),
+--     (2, 'Moderate', 'High', 'Recycling', 'Medium', '2023-02-15', 'Non-compliant'),
+--     (3, 'Good', 'Low', 'Landfill', 'Low', '2023-03-05', 'Compliant'),
+--     (4, 'Poor', 'Moderate', 'Incineration', 'High', '2023-04-20', 'Non-compliant'),
+--     (5, 'Moderate', 'Moderate', 'Recycling', 'Medium', '2023-05-25', 'Compliant'),
+--     (6, 'Good', 'Low', 'Landfill', 'Low', '2023-06-30', 'Compliant'),
+--     (7, 'Poor', 'High', 'Recycling', 'High', '2023-07-22', 'Non-compliant'),
+--     (8, 'Moderate', 'Moderate', 'Incineration', 'Medium', '2023-08-10', 'Compliant'),
+--     (9, 'Good', 'Low', 'Landfill', 'Low', '2023-09-05', 'Compliant'),
+--     (10, 'Poor', 'High', 'Recycling', 'High', '2023-10-15', 'Non-compliant');
+
+-- -- Table: maintenance_history
+-- INSERT INTO maintenance_history (equipment_id, well_id, maintenance_type, issue_detected, repair_status, repair_cost, maintenance_date)
+-- VALUES 
+--     (1, 1, 'Routine', 'No issues', 'Repaired', 200.00, '2023-01-10'),
+--     (2, 2, 'Corrective', 'Hydraulic leak', 'Repaired', 450.75, '2023-02-12'),
+--     (3, 3, 'Preventive', 'Calibration needed', 'Repaired', 300.50, '2023-03-25'),
+--     (4, 4, 'Routine', 'Overheating', 'Repaired', 650.00, '2023-04-20'),
+--     (5, 5, 'Corrective', 'Broken valve', 'Repaired', 120.25, '2023-05-15'),
+--     (6, 6, 'Routine', 'Electrical issue', 'Repaired', 275.00, '2023-06-20'),
+--     (7, 7, 'Preventive', 'No issues', 'Repaired', 180.00, '2023-07-10'),
+--     (8, 8, 'Corrective', 'Hydraulic failure', 'Repaired', 590.00, '2023-08-05'),
+--     (9, 9, 'Routine', 'Leaking gasket', 'Repaired', 115.50, '2023-09-18'),
+--     (10, 10, 'Corrective', 'Faulty wiring', 'Repaired', 400.00, '2023-10-10');
+
+-- -- Table: maintenance_technician_history
+-- INSERT INTO maintenance_technician_history (history_id, technician_name)
+-- VALUES 
+--     (1, 'Deepak Malhotra'),
+--     (2, 'Sunil Sharma'),
+--     (3, 'Anjali Kapoor'),
+--     (4, 'Rajeev Singh'),
+--     (5, 'Geeta Sharma'),
+--     (6, 'Ravi Patel'),
+--     (7, 'Swati Desai'),
+--     (8, 'Arun Kumar'),
+--     (9, 'Shalini Gupta'),
+--     (10, 'Vinod Mehta');
+
+-- -- Table: stakeholder
+-- INSERT INTO stakeholder (name, stakeholder_type, preferred_payment_method, contact_details, location, registration_number, industry, date_of_entry)
+-- VALUES 
+--     ('Reliance Industries', 'Buyer', 'Wire Transfer', 'reliance@domain.in', 'Mumbai, Maharashtra', 'REL12345', 'Oil & Gas Trading', '2022-01-10'),
+--     ('ONGC', 'Seller', 'Credit', 'contact@ongcindia.com', 'New Delhi, Delhi', 'ONG56789', 'Energy Production', '2021-05-12'),
+--     ('Indian Oil Corporation', 'Buyer', 'Cash', 'info@indianoil.in', 'Noida, Uttar Pradesh', 'IOC45678', 'Oil Refining', '2023-02-25'),
+--     ('Bharat Petroleum', 'Seller', 'Wire Transfer', 'support@bharatpetroleum.in', 'Mumbai, Maharashtra', 'BPC78654', 'Oil Exploration', '2022-07-15'),
+--     ('Essar Oil', 'Buyer', 'Credit', 'sales@essaroil.in', 'Ahmedabad, Gujarat', 'ESS12389', 'Oil Trading', '2023-01-05'),
+--     ('Cairn India', 'Seller', 'Cash', 'services@cairnindia.com', 'Barmer, Rajasthan', 'CAI65432', 'Drilling', '2021-09-10'),
+--     ('Reliance Petrochemicals', 'Buyer', 'Wire Transfer', 'reliancepetro@domain.in', 'Jamnagar, Gujarat', 'RPT67891', 'Petrochemicals', '2023-03-14'),
+--     ('Hindustan Petroleum', 'Seller', 'Credit', 'info@hindustanpetroleum.in', 'Mumbai, Maharashtra', 'HPC98765', 'Oil Exploration', '2022-08-22'),
+--     ('Adani Enterprises', 'Buyer', 'Cash', 'contact@adani.com', 'Ahmedabad, Gujarat', 'ADN54321', 'Oil Trading', '2021-11-30'),
+--     ('Nayara Energy', 'Seller', 'Wire Transfer', 'support@nayara.in', 'Mumbai, Maharashtra', 'NYR87654', 'Energy', '2023-04-17');
+
+-- -- Table: contract
+-- INSERT INTO contract (contract_details, start_date, end_date)
+-- VALUES 
+--     ('Supply agreement for refined oil products.', '2022-01-01', '2025-12-31'),
+--     ('Exclusive drilling services for Westfield sites.', '2023-01-15', '2023-12-31'),
+--     ('Purchase agreement for crude oil.', '2021-06-01', '2024-05-31'),
+--     ('Maintenance contract for on-site equipment.', '2022-07-01', '2023-06-30'),
+--     ('Transportation agreement for oil shipments.', '2023-03-01', '2024-02-28'),
+--     ('Environmental compliance monitoring services.', '2021-10-01', '2024-09-30'),
+--     ('Long-term oil supply contract.', '2022-03-15', '2025-03-14'),
+--     ('Joint exploration agreement for offshore sites.', '2023-05-01', '2025-04-30'),
+--     ('Inspection and compliance services.', '2023-08-01', '2024-07-31'),
+--     ('Storage facilities leasing agreement.', '2023-11-01', '2025-10-31');
+
+-- -- Table: stakeholder_contract
+-- INSERT INTO stakeholder_contract (stakeholder_id, contract_id)
+-- VALUES 
+--     (1, 1),
+--     (2, 2),
+--     (3, 3),
+--     (4, 4),
+--     (5, 5),
+--     (6, 6),
+--     (7, 7),
+--     (8, 8),
+--     (9, 9),
+--     (10, 10);
+
+--Bulk Data entries
+-- Insert additional data for each table
+
+-- Table: oil_well
+-- DO $$
+-- DECLARE
+--     i INT;
+-- BEGIN
+--     FOR i IN 11..110 LOOP
+--         INSERT INTO oil_well (location, depth, capacity, date_drilled, status, operator_id)
+--         VALUES (
+--             'Location ' || i,
+--             (RANDOM() * 1000 + 500)::NUMERIC(10,2),
+--             (RANDOM() * 500)::NUMERIC(10,2),
+--             NOW() - (i * INTERVAL '10 days'),
+--             CASE WHEN i % 2 = 0 THEN 'Active' ELSE 'Inactive' END,
+--             (i % 20 + 1)
+--         );
+--     END LOOP;
+-- END $$;
+
+-- Table: equipment_details
+-- DO $$
+-- DECLARE
+--     i INT;
+-- BEGIN
+--     FOR i IN 11..110 LOOP
+--         INSERT INTO equipment_details (name, manufacturer_id, purchase_date, warranty_status, maintenance_schedule)
+--         VALUES (
+--             'Equipment ' || i,
+--             (i % 20 + 1),
+--             NOW() - (i * INTERVAL '20 days'),
+--             CASE WHEN i % 2 = 0 THEN TRUE ELSE FALSE END,
+--             'Schedule ' || (i % 5 + 1)
+--         );
+--     END LOOP;
+-- END $$;
+
+-- -- Table: safety_compliance
+-- DO $$
+-- DECLARE
+--     i INT;
+-- BEGIN
+--     FOR i IN 11..110 LOOP
+--         INSERT INTO safety_compliance (well_id, date_of_inspection, inspector_name, compliance_status, issue_reported, corrective_actions_taken, next_inspection_date)
+--         VALUES (
+--             (i % 100 + 1),
+--             NOW() - (i * INTERVAL '15 days'),
+--             'Inspector ' || i,
+--             CASE WHEN i % 2 = 0 THEN 'Compliant' ELSE 'Non-compliant' END,
+--             CASE WHEN i % 3 = 0 THEN 'Issue ' || i ELSE NULL END,
+--             CASE WHEN i % 3 = 0 THEN 'Corrective action ' || i ELSE NULL END,
+--             NOW() + (i * INTERVAL '15 days')
+--         );
+--     END LOOP;
+-- END $$;
+
+-- -- Table: equipment_usage
+-- DO $$
+-- DECLARE
+--     i INT;
+-- BEGIN
+--     FOR i IN 11..110 LOOP
+--         INSERT INTO equipment_usage (equipment_id, well_id, start_date, end_date, hours_used)
+--         VALUES (
+--             (i % 100 + 1),
+--             (i % 100 + 1),
+--             NOW() - (i * INTERVAL '30 days'),
+--             NOW() - (i * INTERVAL '20 days'),
+--             (RANDOM() * 500)::NUMERIC(6, 2)
+--         );
+--     END LOOP;
+-- END $$;
+
+-- -- Table: equipment_operator
+-- DO $$
+-- DECLARE
+--     i INT;
+-- BEGIN
+--     FOR i IN 11..110 LOOP
+--         INSERT INTO equipment_operator (equipment_id, operator_name)
+--         VALUES (
+--             i,
+--             'Operator ' || i
+--         );
+--     END LOOP;
+-- END $$;
+
+-- -- Table: maintenance_history
+-- DO
+-- $$
+-- DECLARE
+--     i INT := 11; 
+-- BEGIN
+--     WHILE i <= 110 LOOP
+--         INSERT INTO maintenance_history (equipment_id, well_id, maintenance_type, issue_detected, repair_status, repair_cost, maintenance_date)
+--         VALUES (
+--             (RANDOM() * 110 + 1)::INT,
+--             (RANDOM() * 110 + 1)::INT,
+--             CASE WHEN RANDOM() < 0.5 THEN 'Routine' ELSE 'Corrective' END,
+--             'Detected issue ' || i,
+--             CASE WHEN RANDOM() < 0.33 THEN 'Repaired' WHEN RANDOM() < 0.66 THEN 'Unrepairable' ELSE 'In Progress' END,
+--             ROUND((RANDOM() * 1000 + 100)::NUMERIC, 2), 
+--             NOW() - ((RANDOM() * 365)::INT || ' days')::INTERVAL 
+--         );
+--         i := i + 1;
+--     END LOOP;
+-- END
+-- $$;
+
+-- -- Table: operator_status
+-- DO $$
+-- DECLARE
+--     i INT;
+-- BEGIN
+--     FOR i IN 11..110 LOOP
+--         INSERT INTO operator_status (operator_name, operational_status)
+--         VALUES (
+--             'Operator ' || i,
+--             CASE WHEN i % 2 = 0 THEN 'Active' ELSE 'Inactive' END
+--         );
+--     END LOOP;
+-- END $$;
+
+-- -- Table: equipment_maintenance
+-- DO $$
+-- DECLARE
+--     i INT;
+-- BEGIN
+--     FOR i IN 11..110 LOOP
+--         INSERT INTO equipment_maintenance (equipment_id, well_id, maintenance_date, issue_reported, repair_description, maintenance_cost)
+--         VALUES (
+--             (i % 100 + 1),
+--             (i % 100 + 1),
+--             NOW() - (i * INTERVAL '60 days'),
+--             CASE WHEN i % 4 = 0 THEN 'Issue ' || i ELSE NULL END,
+--             CASE WHEN i % 4 = 0 THEN 'Repair description ' || i ELSE NULL END,
+--             (RANDOM() * 1000)::NUMERIC(10, 2)
+--         );
+--     END LOOP;
+-- END $$;
+
+-- -- Table: maintenance_technician
+-- DO $$
+-- DECLARE
+--     i INT;
+-- BEGIN
+--     FOR i IN 11..110 LOOP
+--         INSERT INTO maintenance_technician (maintenance_id, technician_name)
+--         VALUES (
+--             i,
+--             'Technician ' || i
+--         );
+--     END LOOP;
+-- END $$;
+
+-- -- Table: environmental_monitoring
+-- DO $$
+-- DECLARE
+--     i INT;
+-- BEGIN
+--     FOR i IN 11..110 LOOP
+--         INSERT INTO environmental_monitoring (well_id, air_quality, water_pollution_level, waste_disposal_method, emission_level, monitoring_date, compliance_status)
+--         VALUES (
+--             (i % 100 + 1),
+--             'Air Quality ' || i,
+--             'Pollution Level ' || i,
+--             'Disposal Method ' || (i % 3 + 1),
+--             'Emission Level ' || (i % 5 + 1),
+--             NOW() - (i * INTERVAL '90 days'),
+--             CASE WHEN i % 2 = 0 THEN 'Compliant' ELSE 'Non-compliant' END
+--         );
+--     END LOOP;
+-- END $$;
+
+-- -- Table: transaction
+-- DO $$
+-- DECLARE
+--     i INT;
+-- BEGIN
+--     FOR i IN 11..110 LOOP
+--         INSERT INTO transaction (well_id, buyer_id, seller_id, transaction_date, oil_quantity, price_per_unit, transaction_type, payment_method, delivery_date)
+--         VALUES (
+--             (i % 100 + 1),
+--             (i % 50 + 1),
+--             (i % 50 + 1),
+--             NOW() - (i * INTERVAL '10 days'),
+--             (RANDOM() * 1000 + 100)::NUMERIC(10, 2),
+--             (RANDOM() * 100 + 10)::NUMERIC(10, 2),
+--             CASE WHEN i % 2 = 0 THEN 'Purchase' ELSE 'Sale' END,
+--             CASE WHEN i % 2 = 0 THEN 'Credit Card' ELSE 'Wire Transfer' END,
+--             NOW() + (i * INTERVAL '10 days')
+--         );
+--     END LOOP;
+-- END $$;
+
+-- -- Table: stakeholder
+-- DO $$
+-- DECLARE
+--     i INT;
+-- BEGIN
+--     FOR i IN 11..110 LOOP
+--         INSERT INTO stakeholder (name, stakeholder_type, preferred_payment_method, contact_details, location, registration_number, industry, date_of_entry)
+--         VALUES (
+--             'Stakeholder ' || i,
+--             CASE WHEN i % 3 = 0 THEN 'Investor' WHEN i % 3 = 1 THEN 'Buyer' ELSE 'Seller' END,
+--             CASE WHEN i % 2 = 0 THEN 'Credit Card' ELSE 'Wire Transfer' END,
+--             'Contact ' || i,
+--             'Location ' || i,
+--             'Reg' || i,
+--             'Industry ' || i,
+--             NOW() - (i * INTERVAL '180 days')
+--         );
+--     END LOOP;
+-- END $$;
+
+-- -- Table: contract
+-- DO $$
+-- DECLARE
+--     i INT;
+-- BEGIN
+--     FOR i IN 11..110 LOOP
+--         INSERT INTO contract (contract_details, start_date, end_date)
+--         VALUES (
+--             'Contract Details ' || i,
+--             NOW() - (i * INTERVAL '200 days'),
+--             NOW() - (i * INTERVAL '100 days')
+--         );
+--     END LOOP;
+-- END $$;
+
+-- -- Table: stakeholder_contract
+-- DO $$
+-- DECLARE
+--     i INT;
+-- BEGIN
+--     FOR i IN 11..110 LOOP
+--         INSERT INTO stakeholder_contract (stakeholder_id, contract_id)
+--         VALUES (
+--             i,
+--             (i % 100 + 1)
+--         );
+--     END LOOP;
+-- END $$;
+
+-- -- Table: equipment_location
+-- DO $$
+-- DECLARE
+--     i INT;
+-- BEGIN
+--     FOR i IN 11..110 LOOP
+--         INSERT INTO equipment_location (equipment_id, well_id, current_location)
+--         VALUES (
+--             i,
+--             (i % 100 + 1),
+--             'Location ' || i
+--         );
+--     END LOOP;
+-- END $$;
+
+-- -- Table: maintenance_technician_history
+-- DO $$
+-- DECLARE
+--     i INT;
+-- BEGIN
+--     FOR i IN 11..110 LOOP
+--         INSERT INTO maintenance_technician_history (history_id, technician_name)
+--         VALUES (
+--             i,
+--             'Technician ' || i
+--         );
+--     END LOOP;
+-- END $$;
+
+-- --Table: transaction_amount
+-- DO
+-- $$
+-- DECLARE
+--     i INT := 11; 
+-- BEGIN
+--     WHILE i <= 110 LOOP
+--         INSERT INTO transaction_amount (transaction_id, total_amount)
+--         VALUES (i, ROUND((RANDOM() * 1000000 + 10000)::NUMERIC, 2)); 
+--         i := i + 1;
+--     END LOOP;
+-- END
+-- $$;
+
+---select * queries
+-- SELECT * FROM oil_well;
+-- SELECT * FROM equipment_details;
+-- SELECT * FROM safety_compliance;
+-- SELECT * FROM equipment_usage;
+-- SELECT * FROM equipment_operator;
+-- SELECT * FROM operator_status;
+-- SELECT * FROM equipment_maintenance;
+-- SELECT * FROM maintenance_technician;
+-- SELECT * FROM equipment_location;
+-- SELECT * FROM transaction;
+-- SELECT * FROM transaction_amount;
+-- SELECT * FROM environmental_monitoring;
+-- SELECT * FROM maintenance_history;
+-- SELECT * FROM maintenance_technician_history;
+-- SELECT * FROM stakeholder;
+-- SELECT * FROM contract;
+-- SELECT * FROM stakeholder_contract;
+
+
+
+
+
+
+
+
+
+
+
+
