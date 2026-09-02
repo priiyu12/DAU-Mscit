@@ -1,0 +1,26 @@
+
+test_atomic.ko:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <init_module>:
+   0:	e8 00 00 00 00       	callq  5 <init_module+0x5>
+   5:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # c <init_module+0xc>
+   c:	55                   	push   %rbp
+   d:	48 89 e5             	mov    %rsp,%rbp
+  10:	c7 00 02 00 00 00    	movl   $0x2,(%rax)
+  16:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 1d <init_module+0x1d>
+  1d:	f0 83 00 02          	lock addl $0x2,(%rax)
+  21:	5d                   	pop    %rbp
+  22:	c3                   	retq   
+  23:	0f 1f 00             	nopl   (%rax)
+  26:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)
+  2d:	00 00 00 
+
+0000000000000030 <cleanup_module>:
+  30:	e8 00 00 00 00       	callq  35 <cleanup_module+0x5>
+  35:	55                   	push   %rbp
+  36:	48 89 e5             	mov    %rsp,%rbp
+  39:	5d                   	pop    %rbp
+  3a:	c3                   	retq   

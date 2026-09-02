@@ -1,0 +1,748 @@
+/* ==========================================================================
+   Creative Studio — design tokens
+   Palette pulled from the brand mark: espresso (#1E1A17), warm gold
+   accent (#B89B72), warm ivory. The arc + dot flourish in the logo is
+   echoed in the section dividers and hover states throughout.
+   ========================================================================== */
+:root {
+    --bg-color: #F7F3EE;
+    --primary-text: #1E1A17;
+    --secondary-text: #756C63;
+    --accent: #B89B72;
+    --accent-dark: #967a52;
+    --card-bg: #FFFDF9;
+    --border-hairline: #E4DED4;
+    --header-bg: rgba(247, 243, 238, 0.9);
+
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
+
+    --space-md: clamp(1.5rem, 3vw, 2.5rem);
+    --space-lg: clamp(3rem, 7vw, 6rem);
+
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-color);
+    color: var(--primary-text);
+    line-height: 1.65;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, .logo {
+    font-family: var(--font-heading);
+    font-weight: 600;
+}
+
+a {
+    color: inherit;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+:focus-visible {
+    outline: 2px solid var(--accent-dark);
+    outline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------
+   Section eyebrow / divider — a small signature motif echoing the
+   logo's thin gold arc + dot flourish
+   -------------------------------------------------------------------- */
+.eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--accent-dark);
+    margin-bottom: 0.75rem;
+}
+
+.eyebrow::before,
+.eyebrow::after {
+    content: "";
+    width: 28px;
+    height: 1px;
+    background: var(--accent);
+}
+
+section h2 {
+    font-size: clamp(1.9rem, 4vw, 2.6rem);
+    text-align: center;
+    margin-bottom: var(--space-md);
+    position: relative;
+}
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: var(--header-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 0.85rem 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 16px rgba(30, 26, 23, 0.06);
+    z-index: 1000;
+    transition: padding 0.3s var(--ease);
+}
+
+.logo {
+    font-size: 1.3rem;
+    color: var(--primary-text);
+}
+
+.logo img {
+    transition: transform 0.4s var(--ease);
+}
+
+.logo:hover img {
+    transform: scale(1.04) rotate(-1deg);
+}
+
+.nav-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 30px;
+    height: 30px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.nav-toggle span {
+    display: block;
+    height: 2px;
+    background: var(--primary-text);
+    border-radius: 2px;
+    transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: min(78vw, 320px);
+    background-color: var(--card-bg);
+    box-shadow: -8px 0 30px rgba(30, 26, 23, 0.12);
+    transform: translateX(100%);
+    transition: transform 0.4s var(--ease);
+    display: flex;
+    align-items: center;
+    z-index: 1000;
+}
+
+nav.is-open {
+    transform: translateX(0);
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    padding: 2rem;
+    width: 100%;
+}
+
+nav a:link,
+nav a:visited {
+    position: relative;
+    text-decoration: none;
+    color: var(--secondary-text);
+    font-size: 1rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0%;
+    height: 1px;
+    background: var(--accent);
+    transition: width 0.35s var(--ease);
+}
+
+nav a:hover,
+nav a:active {
+    color: var(--accent-dark);
+}
+
+nav a:hover::after,
+nav a:active::after {
+    width: 100%;
+}
+
+/* ==========================================================================
+   Hero
+   ========================================================================== */
+#hero {
+    min-height: 100svh;
+    background: linear-gradient(180deg, rgba(30,26,23,0.15) 0%, rgba(30,26,23,0.35) 100%), url('assets/hero.png') center/cover no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 1.25rem;
+    color: #fff;
+    position: relative;
+}
+
+#hero hgroup h1 {
+    font-size: clamp(2.4rem, 8vw, 4.5rem);
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: rise 0.9s var(--ease) 0.15s forwards;
+}
+
+#hero hgroup p {
+    font-size: clamp(0.95rem, 2vw, 1.2rem);
+    letter-spacing: 0.04em;
+    color: rgba(255, 253, 249, 0.85);
+    margin-bottom: 2rem;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: rise 0.9s var(--ease) 0.35s forwards;
+}
+
+#hero > a.btn {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: rise 0.9s var(--ease) 0.55s forwards;
+}
+
+@keyframes rise {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.btn {
+    display: inline-block;
+    position: relative;
+    padding: 1rem 2.5rem;
+    background-color: var(--accent);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: 0.03em;
+    border: none;
+    cursor: pointer;
+    border-radius: 2px;
+    overflow: hidden;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* pseudo-element: gold sheen sweep on hover/focus */
+.btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.35) 50%, transparent 70%);
+    transform: translateX(-100%);
+    transition: transform 0.6s var(--ease);
+}
+
+.btn:hover::before,
+.btn:focus-visible::before {
+    transform: translateX(100%);
+}
+
+.btn:hover {
+    background-color: var(--accent-dark);
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* ==========================================================================
+   Sections (generic)
+   ========================================================================== */
+section {
+    padding: var(--space-lg) 1.25rem;
+}
+
+/* ==========================================================================
+   About Us
+   ========================================================================== */
+#about {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.about-image {
+    position: relative;
+}
+
+/* pseudo-element: offset frame echoing the staircase photo's soft curve */
+.about-image::before {
+    content: "";
+    position: absolute;
+    top: 16px;
+    left: -16px;
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--accent);
+    border-radius: 120px 8px 120px 8px;
+    z-index: 0;
+}
+
+.about-image img {
+    position: relative;
+    width: 100%;
+    border-radius: 120px 8px 120px 8px;
+    box-shadow: 0 20px 40px rgba(30, 26, 23, 0.15);
+}
+
+.about-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.about-text h2 {
+    text-align: left;
+    margin-bottom: 1.25rem;
+}
+
+.about-text p {
+    color: var(--secondary-text);
+    font-size: 1.05rem;
+}
+
+/* ==========================================================================
+   Services
+   ========================================================================== */
+.services-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.service-card {
+    background-color: var(--card-bg);
+    padding: 2.75rem 2rem;
+    border-radius: 4px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(30, 26, 23, 0.05);
+    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+    position: relative;
+    border-top: 2px solid transparent;
+}
+
+.service-card:hover,
+.service-card:focus-within {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(30, 26, 23, 0.1);
+    border-top-color: var(--accent);
+}
+
+.service-card .icon {
+    font-size: 2.5rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: block;
+    transition: transform 0.4s var(--ease);
+}
+
+.service-card:hover .icon {
+    transform: scale(1.15) rotate(8deg);
+}
+
+.service-card h3 {
+    margin-bottom: 0.75rem;
+    font-size: 1.4rem;
+}
+
+.service-card p {
+    color: var(--secondary-text);
+    font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   Contact
+   ========================================================================== */
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: var(--card-bg);
+    padding: 2.25rem 1.5rem;
+    border-radius: 4px;
+    box-shadow: 0 5px 20px rgba(30, 26, 23, 0.05);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--primary-text);
+    font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--border-hairline);
+    background-color: transparent;
+    border-radius: 2px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--primary-text);
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    background-color: rgba(184, 155, 114, 0.04);
+}
+
+.form-group input:disabled {
+    background-color: #F0ECE5;
+    color: var(--secondary-text);
+    cursor: not-allowed;
+}
+
+.contact-form .btn {
+    width: 100%;
+}
+
+.form-note {
+    font-size: 0.8rem;
+    color: var(--secondary-text);
+    margin-top: 0.35rem;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+footer {
+    background-color: var(--primary-text);
+    color: #fff;
+    padding: var(--space-md) 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+}
+
+.socials {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.socials a:link,
+.socials a:visited {
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    transition: opacity 0.3s ease, color 0.3s ease;
+}
+
+.socials a:hover,
+.socials a:active {
+    opacity: 1;
+    color: var(--accent);
+}
+
+/* ==========================================================================
+   Registration form
+   ========================================================================== */
+#registration-section {
+    padding: 7rem 1.25rem 3rem;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.register-form {
+    background-color: var(--card-bg);
+    padding: 1.75rem 1.25rem;
+    border-radius: 4px;
+    box-shadow: 0 10px 40px rgba(30, 26, 23, 0.08);
+    width: 100%;
+    max-width: 800px;
+}
+
+.register-form h2 {
+    margin-bottom: 1.75rem;
+    font-size: clamp(1.6rem, 4vw, 2.1rem);
+    text-align: left;
+}
+
+fieldset {
+    border: 1px solid var(--border-hairline);
+    padding: 1.5rem 1.25rem;
+    border-radius: 4px;
+    margin-bottom: 1.75rem;
+}
+
+legend {
+    padding: 0 0.75rem;
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    color: var(--accent-dark);
+    font-weight: 600;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+.form-row .form-group {
+    flex: 1;
+    min-width: 0;
+    margin-bottom: 0;
+}
+
+/* Pseudo-classes */
+input:focus:invalid {
+    border-color: #C25B52;
+    background-color: rgba(194, 91, 82, 0.05);
+}
+
+input:focus:valid {
+    border-color: #5F8A5A;
+}
+
+input:active {
+    background-color: rgba(184, 155, 114, 0.05);
+}
+
+::placeholder {
+    color: #b5ada5;
+    opacity: 1;
+}
+
+fieldset::first-letter {
+    font-size: 1.3em;
+}
+
+.required-label::after {
+    content: " *";
+    color: var(--accent);
+}
+
+.btn-group {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 1rem;
+}
+
+.btn-reset {
+    background-color: transparent;
+    color: var(--primary-text);
+    border: 1px solid var(--primary-text);
+}
+
+.btn-reset::before {
+    display: none;
+}
+
+.btn-reset:hover {
+    background-color: var(--primary-text);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+meter {
+    width: 100%;
+    height: 8px;
+    margin-top: 0.5rem;
+    accent-color: var(--accent);
+}
+
+.radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    align-items: center;
+    min-height: 44px;
+}
+
+.radio-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.radio-item label {
+    display: inline;
+    margin-bottom: 0;
+    font-weight: normal;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.75rem;
+}
+
+.checkbox-group label {
+    margin-bottom: 0;
+    font-weight: normal;
+}
+
+/* ==========================================================================
+   Responsive design — mobile-first
+   Base styles above target small phones (<480px). Layers below
+   progressively enhance the layout for larger viewports.
+   ========================================================================== */
+
+/* Small phones landscape / large phones ---------------------------------- */
+@media (min-width: 480px) {
+    .form-row {
+        flex-direction: row;
+    }
+
+    .btn-group {
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+}
+
+/* Tablets ------------------------------------------------------------------ */
+@media (min-width: 768px) {
+    header {
+        padding: 1rem 2.5rem;
+    }
+
+    .nav-toggle {
+        display: none;
+    }
+
+    nav {
+        position: static;
+        height: auto;
+        width: auto;
+        box-shadow: none;
+        transform: none;
+        background: transparent;
+    }
+
+    nav ul {
+        flex-direction: row;
+        gap: 2rem;
+        padding: 0;
+    }
+
+    nav a:link,
+    nav a:visited {
+        font-size: 0.9rem;
+    }
+
+    section {
+        padding: var(--space-lg) 2rem;
+    }
+
+    #about {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .about-image {
+        flex: 1;
+    }
+
+    .about-text {
+        flex: 1;
+        padding-left: 3rem;
+    }
+
+    .services-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .contact-form,
+    .register-form {
+        padding: 3rem;
+    }
+}
+
+/* Small laptops / desktops -------------------------------------------------- */
+@media (min-width: 1024px) {
+    #hero hgroup h1 {
+        font-size: 4.75rem;
+    }
+
+    .service-card {
+        padding: 3rem 2rem;
+    }
+}

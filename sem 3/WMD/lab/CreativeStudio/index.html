@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Studio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <a href="index.html" class="logo" style="display: flex; align-items: center;"><img src="assets/logo.png" alt="Creative Studio" height="52"></a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="siteNav">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav id="siteNav">
+            <ul>
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="register.html">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <hgroup>
+                <h1>Timeless Design</h1>
+                <p>Sophisticated &amp; Elegant Experiences</p>
+            </hgroup>
+            <a href="#contact" class="btn">Start Your Project</a>
+        </section>
+
+        <section id="about">
+            <aside class="about-image">
+                <img src="assets/about.png" alt="Creative Studio's studio workspace with a desk, warm lighting and design references">
+            </aside>
+            <article class="about-text">
+                <span class="eyebrow" style="justify-content: flex-start;">Since 2016</span>
+                <h2>About Us</h2>
+                <p>At Creative Studio, we believe in the power of timeless design. Our team of visionaries craft
+                    elegant, luxury experiences tailored to your brand's unique identity. With a dedication to espresso
+                    and warm ivory tones, we bring warmth and sophistication to every project.</p>
+            </article>
+        </section>
+
+        <section id="services">
+            <span class="eyebrow">What We Do</span>
+            <h2>Our Services</h2>
+            <div class="services-container">
+                <div class="service-card" tabindex="0">
+                    <span class="icon" aria-hidden="true">✧</span>
+                    <h3>Brand Identity</h3>
+                    <p>Elevating your brand with sophisticated and memorable design language.</p>
+                </div>
+                <div class="service-card" tabindex="0">
+                    <span class="icon" aria-hidden="true">⟡</span>
+                    <h3>Web Design</h3>
+                    <p>Crafting editorial, luxury digital experiences that captivate your audience.</p>
+                </div>
+                <div class="service-card" tabindex="0">
+                    <span class="icon" aria-hidden="true">✺</span>
+                    <h3>Art Direction</h3>
+                    <p>Curating a timeless aesthetic for campaigns and visual storytelling.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <span class="eyebrow">Get In Touch</span>
+            <h2>Contact Us</h2>
+            <form action="#" method="POST" class="contact-form">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required placeholder="Your Name" autocomplete="name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required placeholder="Your Email" autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" required
+                        placeholder="How can we help you?"></textarea>
+                </div>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Creative Studio. All Rights Reserved.</p>
+        <div class="socials">
+            <a href="#">Instagram</a>
+            <a href="#">Twitter</a>
+            <a href="#">LinkedIn</a>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile navigation toggle
+        const navToggle = document.getElementById('navToggle');
+        const siteNav = document.getElementById('siteNav');
+
+        navToggle.addEventListener('click', function () {
+            const isOpen = siteNav.classList.toggle('is-open');
+            navToggle.setAttribute('aria-expanded', isOpen);
+        });
+
+        siteNav.querySelectorAll('a').forEach(function (link) {
+            link.addEventListener('click', function () {
+                siteNav.classList.remove('is-open');
+                navToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+    </script>
+</body>
+
+</html>

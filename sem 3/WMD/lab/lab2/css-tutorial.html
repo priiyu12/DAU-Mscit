@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CSS Key Concepts Tutorial</title>
+
+    <style>
+        /* =====================================================
+           1. CSS VARIABLES
+           ===================================================== */
+
+        :root {
+            --primary: #2563eb;
+            --secondary: #16a34a;
+            --dark: #1f2937;
+            --light: #f3f4f6;
+            --spacing: 20px;
+            --radius: 10px;
+        }
+
+
+        /* =====================================================
+           2. UNIVERSAL SELECTOR + BOX MODEL
+           ===================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        /* =====================================================
+           3. INHERITANCE
+           ===================================================== */
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: var(--dark);
+            background: var(--light);
+            line-height: 1.6;
+        }
+
+
+        /* =====================================================
+           4. HEADER
+           ===================================================== */
+
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+
+        /* =====================================================
+           5. NAVIGATION — FLEXBOX
+           ===================================================== */
+
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            background: var(--dark);
+            padding: 15px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 12px;
+        }
+
+        nav a:hover {
+            background: var(--primary);
+            border-radius: 5px;
+        }
+
+
+        /* =====================================================
+           6. MAIN CONTAINER — BOX MODEL + RESPONSIVE WIDTH
+           ===================================================== */
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+
+            margin: 30px auto;
+            padding: var(--spacing);
+
+            background: white;
+            border-radius: var(--radius);
+        }
+
+
+        /* =====================================================
+           7. CSS GRID
+           ===================================================== */
+
+        .cards {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: var(--spacing);
+        }
+
+
+        /* =====================================================
+           8. CARD — INHERITANCE + SPECIFICITY
+           ===================================================== */
+
+        .card {
+            padding: var(--spacing);
+
+            border: 2px solid #ddd;
+            border-radius: var(--radius);
+
+            background: white;
+
+            transition:
+                transform 0.2s,
+                box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+
+        /* =====================================================
+           9. SPECIFICITY EXAMPLE
+           ===================================================== */
+
+        .card p {
+            color: #555;
+        }
+
+        .important {
+            color: var(--primary);
+        }
+
+        #special {
+            color: var(--secondary);
+        }
+
+
+        /* =====================================================
+           10. RESPONSIVE IMAGE
+           ===================================================== */
+
+        .card img {
+            width: 100%;
+            height: 180px;
+
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+
+        /* =====================================================
+           11. BUTTON
+           ===================================================== */
+
+        .btn {
+            display: inline-block;
+
+            padding: 10px 20px;
+
+            background: var(--primary);
+            color: white;
+
+            border: none;
+            border-radius: 6px;
+
+            cursor: pointer;
+
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background: #1d4ed8;
+        }
+
+        .btn:focus {
+            outline: 3px solid #93c5fd;
+        }
+
+
+        /* =====================================================
+           12. POSITIONING
+           ===================================================== */
+
+        .position-demo {
+            position: relative;
+
+            height: 180px;
+            margin-top: 30px;
+
+            background: #e5e7eb;
+            border: 2px dashed #555;
+        }
+
+        .badge {
+            position: absolute;
+
+            top: 10px;
+            right: 10px;
+
+            padding: 5px 10px;
+
+            background: var(--secondary);
+            color: white;
+
+            border-radius: 20px;
+        }
+
+
+        /* =====================================================
+           13. FLEXBOX EXAMPLE
+           ===================================================== */
+
+        .flex-demo {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 15px;
+
+            padding: 20px;
+
+            background: #dbeafe;
+        }
+
+        .flex-item {
+            flex: 1;
+
+            padding: 20px;
+
+            text-align: center;
+
+            background: white;
+            border: 1px solid #aaa;
+        }
+
+
+        /* =====================================================
+           14. MODERN RESPONSIVE TYPOGRAPHY
+           ===================================================== */
+
+        .responsive-heading {
+            font-size: clamp(1.5rem, 4vw, 3rem);
+        }
+
+
+        /* =====================================================
+           15. MEDIA QUERY
+           ===================================================== */
+
+        @media (max-width: 700px) {
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                flex-direction: column;
+            }
+
+            .flex-demo {
+                flex-direction: column;
+            }
+
+            .flex-item {
+                width: 100%;
+            }
+        }
+
+
+        /* =====================================================
+           16. DARK MODE BASED ON USER PREFERENCE
+           ===================================================== */
+
+        @media (prefers-color-scheme: dark) {
+
+            body {
+                background: #111827;
+                color: #f9fafb;
+            }
+
+            .container {
+                background: #1f2937;
+            }
+
+            .card {
+                background: #374151;
+                border-color: #4b5563;
+            }
+
+            .card p {
+                color: #d1d5db;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1 class="responsive-heading">
+            CSS Key Concepts
+        </h1>
+
+        <p>
+            A Master's Level CSS Tutorial
+        </p>
+    </header>
+
+
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Concepts</a>
+        <a href="#">Examples</a>
+        <a href="#">Contact</a>
+    </nav>
+
+
+    <main class="container">
+
+        <h2>CSS Concepts in Action</h2>
+
+        <section class="cards">
+
+            <article class="card">
+
+                <img
+                    src="https://picsum.photos/500/300?random=1"
+                    alt="Random example"
+                >
+
+                <h3>Box Model</h3>
+
+                <p>
+                    CSS controls content, padding, border and margin.
+                </p>
+
+                <button class="btn">
+                    Learn More
+                </button>
+
+            </article>
+
+
+            <article class="card">
+
+                <img
+                    src="https://picsum.photos/500/300?random=2"
+                    alt="Random example"
+                >
+
+                <h3>Flexbox</h3>
+
+                <p class="important">
+                    Flexbox is useful for one-dimensional layouts.
+                </p>
+
+                <button class="btn">
+                    Learn More
+                </button>
+
+            </article>
+
+
+            <article class="card">
+
+                <img
+                    src="https://picsum.photos/500/300?random=3"
+                    alt="Random example"
+                >
+
+                <h3>Specificity</h3>
+
+                <p id="special" class="important">
+                    Which CSS rule determines my color?
+                </p>
+
+                <button class="btn">
+                    Learn More
+                </button>
+
+            </article>
+
+        </section>
+
+
+        <h2>Flexbox Demonstration</h2>
+
+        <section class="flex-demo">
+
+            <div class="flex-item">Item 1</div>
+            <div class="flex-item">Item 2</div>
+            <div class="flex-item">Item 3</div>
+
+        </section>
+
+
+        <h2>Positioning Demonstration</h2>
+
+        <section class="position-demo">
+
+            <div class="badge">
+                NEW
+            </div>
+
+            <p>
+                The badge is positioned relative to this container.
+            </p>
+
+        </section>
+
+    </main>
+
+</body>
+</html>

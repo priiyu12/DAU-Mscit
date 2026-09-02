@@ -1,0 +1,1 @@
+cmd_/home/ubuntu20sp/HostFiles/IT628/ConcurrentProgramming/Module.symvers := sed 's/ko$$/o/' /home/ubuntu20sp/HostFiles/IT628/ConcurrentProgramming/modules.order | scripts/mod/modpost -m -a   -o /home/ubuntu20sp/HostFiles/IT628/ConcurrentProgramming/Module.symvers -e -i Module.symvers   -T -

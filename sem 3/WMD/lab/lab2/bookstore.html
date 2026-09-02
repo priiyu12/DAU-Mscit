@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pageturner Books</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: Georgia, 'Times New Roman', serif; background: #faf7f2; color: #2b2320; }
+
+  header {
+    background: #2b2320;
+    color: #faf7f2;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  header h1 { font-size: 1.8rem; letter-spacing: 1px; }
+  nav a {
+    color: #faf7f2;
+    text-decoration: none;
+    margin-left: 25px;
+    font-size: 0.95rem;
+  }
+  nav a:hover { text-decoration: underline; }
+
+  .hero {
+    background: #7a5c3e;
+    color: #fff;
+    text-align: center;
+    padding: 60px 20px;
+  }
+  .hero h2 { font-size: 2.2rem; margin-bottom: 10px; }
+  .hero p { font-size: 1.1rem; opacity: 0.9; }
+
+  main { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
+  main h2 { margin-bottom: 25px; font-size: 1.6rem; border-bottom: 2px solid #7a5c3e; padding-bottom: 8px; }
+
+  .books {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 25px;
+  }
+  .book-card {
+    background: #fff;
+    border: 1px solid #e0d8cc;
+    border-radius: 6px;
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .book-card:hover { transform: translateY(-4px); box-shadow: 0 6px 14px rgba(0,0,0,0.1); }
+  .book-card h3 { font-size: 1.3rem; margin-bottom: 12px; margin-top: 8px; }
+  .book-card p.desc { color: #6b5f52; font-size: 0.95rem; margin-bottom: 15px; line-height: 1.5; }
+  .btn {
+    background: #7a5c3e;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+  .btn:hover { background: #5f4630; }
+
+  footer {
+    background: #2b2320;
+    color: #faf7f2;
+    text-align: center;
+    padding: 25px;
+    margin-top: 50px;
+    font-size: 0.9rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📚 Pageturner Books</h1>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Shop</a>
+    <a href="#">Categories</a>
+    <a href="#">Cart</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h2>Find Your Next Favorite Book</h2>
+  <p>Curated fiction, non-fiction, and everything in between.</p>
+</section>
+
+<main>
+  <h2>Browse by Category</h2>
+  <div class="books">
+
+    <div class="book-card">
+      <h3>Sci-Fi</h3>
+      <p class="desc">Explore distant worlds, future tech, and bold ideas that push the boundaries of imagination.</p>
+      <button class="btn">Browse</button>
+    </div>
+
+    <div class="book-card">
+      <h3>Comedy</h3>
+      <p class="desc">Light-hearted, witty reads guaranteed to make you laugh out loud.</p>
+      <button class="btn">Browse</button>
+    </div>
+
+    <div class="book-card">
+      <h3>Drama</h3>
+      <p class="desc">Compelling stories of romance, family, and society exploring the depths of human life.</p>
+      <button class="btn">Browse</button>
+    </div>
+
+    <div class="book-card">
+      <h3>Action</h3>
+      <p class="desc">Fast-paced spy thrillers and daring adventures packed with suspense.</p>
+      <button class="btn">Browse</button>
+    </div>
+
+    <div class="book-card">
+      <h3>Horror</h3>
+      <p class="desc">Chilling tales of werewolves, monsters, and things that lurk in the dark.</p>
+      <button class="btn">Browse</button>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <p>&copy; 2026 Pageturner Books. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

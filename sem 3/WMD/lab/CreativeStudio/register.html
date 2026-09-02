@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration - Creative Studio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <a href="index.html" class="logo" style="display: flex; align-items: center;"><img src="assets/logo.png"
+                alt="Creative Studio" height="52"></a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="siteNav">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav id="siteNav">
+            <ul>
+                <li><a href="index.html#hero">Home</a></li>
+                <li><a href="index.html#about">About Us</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="register.html">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="registration-section">
+            <form action="#" method="POST" class="register-form" novalidate>
+                <span class="eyebrow" style="justify-content: flex-start;">Join The Studio</span>
+                <h2>Client Registration</h2>
+
+                <fieldset>
+                    <legend>Personal Information</legend>
+                    <p class="hint">Tell us who you are so we can tailor every proposal to you.</p>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fullName" class="required-label">Full Name</label>
+                            <input type="text" id="fullName" name="fullName" required autofocus placeholder="John Doe"
+                                autocomplete="name" pattern="[A-Za-z\s]{3,}" minlength="3" maxlength="60"
+                                aria-describedby="fullNameHelp">
+                            <p class="form-note" id="fullNameHelp">Letters and spaces only, minimum 3 characters.</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="required-label">Email Address</label>
+                            <input type="email" id="email" name="email" required placeholder="john@example.com"
+                                autocomplete="email" maxlength="80">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="password" class="required-label">Password</label>
+                            <input type="password" id="password" name="password" required minlength="8" maxlength="64"
+                                placeholder="Min. 8 characters" autocomplete="new-password"
+                                aria-describedby="passwordStrengthLabel">
+                            <meter id="password-strength" min="0" max="100" low="33" high="66" optimum="80"
+                                value="0"></meter>
+                            <p class="form-note" id="passwordStrengthLabel">Strength: <span id="strengthText">—</span></p>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword" class="required-label">Confirm Password</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" required minlength="8"
+                                maxlength="64" placeholder="Repeat Password" autocomplete="new-password">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="dob">Date of Birth</label>
+                            <input type="date" id="dob" name="dob" max="2020-01-01">
+                            <p class="form-note">Age fills in automatically once selected.</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="age">Age</label>
+                            <input type="number" id="age" name="age" min="18" max="100" step="1" placeholder="18+"
+                                disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="genderMale" name="gender" value="male">
+                                <label for="genderMale">Male</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="genderFemale" name="gender" value="female">
+                                <label for="genderFemale">Female</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="genderOther" name="gender" value="other">
+                                <label for="genderOther">Other</label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Professional Information</legend>
+                    <p class="hint">A little about your work helps us match you with the right service.</p>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" maxlength="10"
+                                placeholder="1234567890" autocomplete="tel">
+                        </div>
+                        <div class="form-group">
+                            <label for="website">Website / Portfolio</label>
+                            <input type="url" id="website" name="website" placeholder="https://yourportfolio.com"
+                                autocomplete="url">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="serviceSearch">Service Needed (Search)</label>
+                            <input type="search" id="serviceSearch" name="serviceSearch" list="servicesList"
+                                placeholder="Search services...">
+                            <datalist id="servicesList">
+                                <option value="Brand Identity">
+                                <option value="Web Design">
+                                <option value="Art Direction">
+                                <option value="Photography">
+                                <option value="Marketing">
+                            </datalist>
+                        </div>
+                        <div class="form-group">
+                            <label for="prefTime">Preferred Time to Contact</label>
+                            <input type="time" id="prefTime" name="prefTime">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="profilePic">Profile Picture</label>
+                        <input type="file" id="profilePic" name="profilePic" accept="image/png, image/jpeg">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="clientId">Client ID (Read-only)</label>
+                        <input type="text" id="clientId" name="clientId" value="CS-99482" readonly>
+                    </div>
+                </fieldset>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms" class="required-label">I agree to the Terms and Conditions</label>
+                </div>
+
+                <div id="statusMessage" role="status" style="margin-bottom: 1rem; text-align: right; min-height: 24px;"></div>
+
+                <div class="btn-group">
+                    <button type="reset" class="btn btn-reset">Reset Form</button>
+                    <button type="submit" class="btn">Register</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Creative Studio. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Mobile navigation toggle
+        const navToggle = document.getElementById('navToggle');
+        const siteNav = document.getElementById('siteNav');
+
+        navToggle.addEventListener('click', function () {
+            const isOpen = siteNav.classList.toggle('is-open');
+            navToggle.setAttribute('aria-expanded', isOpen);
+        });
+
+        // Password strength meter
+        const passwordInput = document.getElementById('password');
+        const strengthMeter = document.getElementById('password-strength');
+        const strengthText = document.getElementById('strengthText');
+
+        passwordInput.addEventListener('input', function (e) {
+            const val = e.target.value;
+            let score = Math.min(val.length * 8, 60);
+            if (/[A-Z]/.test(val)) score += 15;
+            if (/[0-9]/.test(val)) score += 15;
+            if (/[^A-Za-z0-9]/.test(val)) score += 10;
+            score = Math.min(score, 100);
+
+            strengthMeter.value = score;
+            strengthText.textContent = val.length === 0 ? '—' : score < 34 ? 'Weak' : score < 67 ? 'Fair' : 'Strong';
+        });
+
+        // Auto-calculate age from date of birth into the disabled Age field
+        const dobInput = document.getElementById('dob');
+        const ageInput = document.getElementById('age');
+
+        dobInput.addEventListener('change', function () {
+            if (!dobInput.value) {
+                ageInput.value = '';
+                return;
+            }
+            const dob = new Date(dobInput.value);
+            const today = new Date();
+            let age = today.getFullYear() - dob.getFullYear();
+            const monthDiff = today.getMonth() - dob.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+                age--;
+            }
+            ageInput.value = age >= 0 ? age : '';
+        });
+
+        // Form submission
+        document.querySelector('.register-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const status = document.getElementById('statusMessage');
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (!this.checkValidity()) {
+                status.innerHTML = "<span style='color: #C25B52; font-weight: bold;'>Please fill all required fields correctly.</span>";
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                status.innerHTML = "<span style='color: #C25B52; font-weight: bold;'>Passwords do not match.</span>";
+                return;
+            }
+
+            status.innerHTML = "<span style='color: #5F8A5A; font-weight: bold;'>Registration successful! Welcome to Creative Studio.</span>";
+            this.reset();
+            strengthMeter.value = 0;
+            strengthText.textContent = '—';
+        });
+    </script>
+</body>
+
+</html>

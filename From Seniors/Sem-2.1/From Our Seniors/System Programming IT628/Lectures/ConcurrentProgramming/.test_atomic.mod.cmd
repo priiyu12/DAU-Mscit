@@ -1,0 +1,1 @@
+cmd_/home/ubuntu20sp/HostFiles/IT628/ConcurrentProgramming/test_atomic.mod := { echo  /home/ubuntu20sp/HostFiles/IT628/ConcurrentProgramming/test_atomic.o;  echo; } > /home/ubuntu20sp/HostFiles/IT628/ConcurrentProgramming/test_atomic.mod
